@@ -55,7 +55,7 @@ const CornerTestimonialCards = () => {
 
             {/* Quote */}
             <p className="text-sm text-zinc-700 leading-relaxed">
-              "{card.quote}"
+              &quot;{card.quote}&quot;
             </p>
 
             {/* Name & role */}

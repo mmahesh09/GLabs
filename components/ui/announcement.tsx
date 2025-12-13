@@ -100,17 +100,15 @@ function AnnouncementComponent({
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   const [isMounted, setIsMounted] = useState(false);
-  const [hasExpandable, setHasExpandable] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const expandedContentRef = useRef<ReactNode>(null);
-  const mainContentRef = useRef<ReactNode[]>([]);
 
   useEffect(() => {
     setIsMounted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
+  const { mainContent, expandedContent, hasExpandable } = React.useMemo(() => {
     const childArray = React.Children.toArray(children);
     const main: ReactNode[] = [];
     let expanded: ReactNode = null;
@@ -118,16 +116,14 @@ function AnnouncementComponent({
 
     childArray.forEach((child) => {
       if (React.isValidElement(child) && (child.type as unknown as Record<symbol, boolean>)[EXPANDABLE_CONTENT_SYMBOL]) {
-        expanded = child.props.children;
+        expanded = (child.props as { children: ReactNode }).children;
         found = true;
       } else {
         main.push(child);
       }
     });
 
-    expandedContentRef.current = expanded;
-    mainContentRef.current = main;
-    setHasExpandable(found);
+    return { mainContent: main, expandedContent: expanded, hasExpandable: found };
   }, [children]);
 
   const updatePosition = useCallback(() => {
@@ -190,10 +186,10 @@ function AnnouncementComponent({
   };
 
   const displayContent = shiny
-    ? React.Children.map(mainContentRef.current, (child) =>
+    ? React.Children.map(mainContent, (child) =>
         typeof child === 'string' ? <LustreText text={child} /> : child
       )
-    : mainContentRef.current;
+    : mainContent;
 
   const handleToggle = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -285,7 +281,7 @@ function AnnouncementComponent({
               aria-modal="false"
               aria-label="Expanded announcement content"
             >
-              {expandedContentRef.current}
+              {expandedContent}
             </motion.div>
           )}
         </AnimatePresence>,
