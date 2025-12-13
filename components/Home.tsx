@@ -2,16 +2,63 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import Image from "next/image";
 import AnoAI from "@/components/animated-shader-background";
 import AnimatedBadge from "@/components/ui/animated-badge";
 import { Safari } from "@/components/ui/safari";
 import LogoCloud from "@/components/logo-cloud";
 import Features from "@/components/features-4";
 import { Particles } from "@/components/ui/particles";
+import revealImage from "@/assets/image.jpg";
+import chatgptIcon from "@/assets/icons/chatgpt.svg";
+import langchainIcon from "@/assets/icons/langchain.svg";
+import n8nIcon from "@/assets/icons/n8n.svg";
 
 const Home = () => {
   const revealImgRef = useRef<HTMLImageElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const rafRef = useRef<number | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (rafRef.current) return; // Drop frame if one is already pending
+
+    const { clientX, clientY } = e;
+
+    rafRef.current = requestAnimationFrame(() => {
+      if (!containerRef.current || !revealImgRef.current) {
+        rafRef.current = null;
+        return;
+      }
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      const img = revealImgRef.current;
+      img.style.setProperty("--mx", `${x}px`);
+      img.style.setProperty("--my", `${y}px`);
+
+      rafRef.current = null;
+    });
+  };
+
+  // Cleanup RAF on unmount
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
+
+  const handleMouseLeave = () => {
+    const img = revealImgRef.current;
+    if (img) {
+      img.style.setProperty("--mx", "-9999px");
+      img.style.setProperty("--my", "-9999px");
+    }
+  };
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-[#050505] text-white font-[Montserrat]">
@@ -33,40 +80,30 @@ const Home = () => {
 
       {/* ---- REVEAL IMAGE ---- */}
       <div
+        ref={containerRef}
         className="absolute inset-0 z-[3]"
-        onMouseMove={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const img = revealImgRef.current as HTMLImageElement | null;
-          if (img) {
-            img.style.setProperty("--mx", `${x}px`);
-            img.style.setProperty("--my", `${y}px`);
-          }
-        }}
-        onMouseLeave={() => {
-          const img = revealImgRef.current as HTMLImageElement | null;
-          if (img) {
-            img.style.setProperty("--mx", "-9999px");
-            img.style.setProperty("--my", "-9999px");
-          }
-        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
       >
-        <img
-  ref={revealImgRef as React.RefObject<HTMLImageElement>}
-  src="/image.jpg"
-  alt="reveal"
-  className="absolute top-[-20%] w-full opacity-[0.18] mix-blend-lighten pointer-events-none transition-all"
-  style={{
-    ['--mx' as any]: '-9999px',
-    ['--my' as any]: '-9999px',
-    maskImage:
-      "radial-gradient(circle at var(--mx) var(--my), white 0px, rgba(255,255,255,0.7) 80px, transparent 180px)",
-    WebkitMaskImage:
-      "radial-gradient(circle at var(--mx) var(--my), white 0px, rgba(255,255,255,0.7) 80px, transparent 180px)",
-  } as React.CSSProperties}
-/>
-
+        <div className="absolute top-[-20%] w-full h-full pointer-events-none">
+          <Image
+            ref={revealImgRef}
+            src={revealImage}
+            alt="reveal"
+            fill
+            priority
+            sizes="100vw"
+            className="opacity-[0.18] mix-blend-lighten transition-all object-cover object-center"
+            style={{
+              ['--mx' as any]: '-9999px',
+              ['--my' as any]: '-9999px',
+              maskImage:
+                "radial-gradient(circle at var(--mx) var(--my), white 0px, rgba(255,255,255,0.7) 80px, transparent 180px)",
+              WebkitMaskImage:
+                "radial-gradient(circle at var(--mx) var(--my), white 0px, rgba(255,255,255,0.7) 80px, transparent 180px)",
+            } as React.CSSProperties}
+          />
+        </div>
       </div>
 
       {/* ---- MAIN HERO ---- */}
@@ -82,9 +119,11 @@ const Home = () => {
         <h1 className="text-center mx-auto text-[2.4rem] md:text-[4rem] font-bold leading-[1.15] tracking-tight space-y-2">
           <span className="flex justify-center items-center gap-3 flex-wrap">
             Build
-            <img
-              src="/icons/chatgpt.svg"
+            <Image
+              src={chatgptIcon}
               alt="ChatGPT"
+              width={48}
+              height={48}
               className="w-10 md:w-12 h-auto invert brightness-200 drop-shadow-[0_0_10px_rgba(140,82,255,0.4)]"
             />
             Intelligent
@@ -92,8 +131,8 @@ const Home = () => {
 
           <span className="flex justify-center items-center gap-3 flex-wrap">
             Workflows
-            <img src="/icons/langchain.svg" className="w-10 md:w-12" />
-            <img src="/icons/n8n.svg" className="w-10 md:w-12" />
+            <Image src={langchainIcon} alt="Langchain" width={48} height={48} className="w-10 md:w-12 h-auto" />
+            <Image src={n8nIcon} alt="n8n" width={48} height={48} className="w-10 md:w-12 h-auto" />
           </span>
         </h1>
 
