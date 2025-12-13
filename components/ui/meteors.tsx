@@ -40,6 +40,7 @@ export const Meteors = ({
         "s",
     }))
     setMeteorStyles(styles)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [number, minDelay, maxDelay, minDuration, maxDuration, angle])
 
   return (

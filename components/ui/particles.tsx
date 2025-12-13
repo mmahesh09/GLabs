@@ -100,62 +100,6 @@ export const Particles: React.FC<ParticlesProps> = ({
   const rafID = useRef<number | null>(null)
   const resizeTimeout = useRef<NodeJS.Timeout | null>(null)
 
-  useEffect(() => {
-    if (canvasRef.current) {
-      context.current = canvasRef.current.getContext("2d")
-    }
-    initCanvas()
-    animate()
-
-    const handleResize = () => {
-      if (resizeTimeout.current) {
-        clearTimeout(resizeTimeout.current)
-      }
-      resizeTimeout.current = setTimeout(() => {
-        initCanvas()
-      }, 200)
-    }
-
-    window.addEventListener("resize", handleResize)
-
-    return () => {
-      if (rafID.current != null) {
-        window.cancelAnimationFrame(rafID.current)
-      }
-      if (resizeTimeout.current) {
-        clearTimeout(resizeTimeout.current)
-      }
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [color])
-
-  useEffect(() => {
-    onMouseMove()
-  }, [mousePosition.x, mousePosition.y])
-
-  useEffect(() => {
-    initCanvas()
-  }, [refresh])
-
-  const initCanvas = () => {
-    resizeCanvas()
-    drawParticles()
-  }
-
-  const onMouseMove = () => {
-    if (canvasRef.current) {
-      const rect = canvasRef.current.getBoundingClientRect()
-      const { w, h } = canvasSize.current
-      const x = mousePosition.x - rect.left - w / 2
-      const y = mousePosition.y - rect.top - h / 2
-      const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2
-      if (inside) {
-        mouse.current.x = x
-        mouse.current.y = y
-      }
-    }
-  }
-
   const resizeCanvas = () => {
     if (canvasContainerRef.current && canvasRef.current && context.current) {
       canvasSize.current.w = canvasContainerRef.current.offsetWidth
@@ -300,6 +244,65 @@ export const Particles: React.FC<ParticlesProps> = ({
     })
     rafID.current = window.requestAnimationFrame(animate)
   }
+
+  const initCanvas = () => {
+    resizeCanvas()
+    drawParticles()
+  }
+
+  const onMouseMove = () => {
+    if (canvasRef.current) {
+      const rect = canvasRef.current.getBoundingClientRect()
+      const { w, h } = canvasSize.current
+      const x = mousePosition.x - rect.left - w / 2
+      const y = mousePosition.y - rect.top - h / 2
+      const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2
+      if (inside) {
+        mouse.current.x = x
+        mouse.current.y = y
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      context.current = canvasRef.current.getContext("2d")
+    }
+    initCanvas()
+    animate()
+
+    const handleResize = () => {
+      if (resizeTimeout.current) {
+        clearTimeout(resizeTimeout.current)
+      }
+      resizeTimeout.current = setTimeout(() => {
+        initCanvas()
+      }, 200)
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      if (rafID.current != null) {
+        window.cancelAnimationFrame(rafID.current)
+      }
+      if (resizeTimeout.current) {
+        clearTimeout(resizeTimeout.current)
+      }
+      window.removeEventListener("resize", handleResize)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [color])
+
+  useEffect(() => {
+    onMouseMove()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mousePosition.x, mousePosition.y])
+
+  useEffect(() => {
+    initCanvas()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh])
 
   return (
     <div
