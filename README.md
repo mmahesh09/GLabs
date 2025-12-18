@@ -2,9 +2,9 @@
 # GLabs — Where Prompts Become Agents 🤖
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/<USER>/GLabs?style=for-the-badge&logo=github" />
-  <img src="https://img.shields.io/github/forks/<USER>/GLabs?style=for-the-badge&logo=github" />
-  <img src="https://img.shields.io/github/issues/<USER>/GLabs?style=for-the-badge&logo=github" />
+  <img src="https://img.shields.io/github/stars/mmahesh09/GLabs?style=for-the-badge&logo=github" />
+  <img src="https://img.shields.io/github/forks/mmahesh09/GLabs?style=for-the-badge&logo=github" />
+  <img src="https://img.shields.io/github/issues/mmahesh09/GLabs?style=for-the-badge&logo=github" />
 </p>
 
 <p align="center">
@@ -18,6 +18,7 @@
   <img src="https://img.shields.io/badge/Built%20For-Developers%20%26%20Teams-2563EB?style=flat-square" />
   <img src="https://img.shields.io/badge/Prompt--to--Agent-Platform-9333EA?style=flat-square" />
 </p>
+
 
 
 GLabs is an AI-powered prompt-to-agent platform that transforms natural-language prompts into structured, production-ready AI agents and automated workflows. It is designed to help developers, automation engineers, and AI practitioners bridge the gap between prompt engineering and real-world automation.
