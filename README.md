@@ -1,5 +1,5 @@
 
-# GLabs — Where Prompts Become Agents 🤖
+# GyraLabs — Where Prompts Become Agents 🤖
 
 <p align="center">
   <img src="https://img.shields.io/github/stars/mmahesh09/GLabs?style=for-the-badge&logo=github" />
@@ -21,14 +21,14 @@
 
 
 
-GLabs is an AI-powered prompt-to-agent platform that transforms natural-language prompts into structured, production-ready AI agents and automated workflows. It is designed to help developers, automation engineers, and AI practitioners bridge the gap between prompt engineering and real-world automation.
+GyraLabs is an AI-powered prompt-to-agent platform that transforms natural-language prompts into structured, production-ready AI agents and automated workflows. It is designed to help developers, automation engineers, and AI practitioners bridge the gap between prompt engineering and real-world automation.
 
-Rather than treating prompts as static text, GLabs evaluates, optimizes, and operationalizes them—turning user intent into executable agent logic compatible with workflow automation tools such as n8n.
+Rather than treating prompts as static text, GyraLabs evaluates, optimizes, and operationalizes them—turning user intent into executable agent logic compatible with workflow automation tools such as n8n.
 
 
 ## 📌 Index
 
-→ [About GLabs](#about-glabs)  
+→ [About GyraLabs](#about-gyralabs)  
 
 → [Problem Statement](#problem-statement)  
 
