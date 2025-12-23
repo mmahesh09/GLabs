@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { Check } from 'lucide-react';
 
@@ -63,21 +64,19 @@ const Pricing = () => {
 
           <div className="inline-flex items-center bg-black/[0.03] dark:bg-white/[0.03] rounded-full p-1">
             <button
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                !isAnnual
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${!isAnnual
                   ? 'bg-black/[0.07] dark:bg-white/[0.07] text-black dark:text-white'
                   : 'text-zinc-600 dark:text-zinc-400'
-              }`}
+                }`}
               onClick={() => setIsAnnual(false)}
             >
               Monthly
             </button>
             <button
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                isAnnual
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${isAnnual
                   ? 'bg-black/[0.07] dark:bg-white/[0.07] text-black dark:text-white'
                   : 'text-zinc-600 dark:text-zinc-400'
-              }`}
+                }`}
               onClick={() => setIsAnnual(true)}
             >
               Annual <span className="ml-1 text-xs">(Save ~20%)</span>
@@ -89,11 +88,10 @@ const Pricing = () => {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl border ${
-                plan.highlighted
+              className={`relative rounded-2xl border ${plan.highlighted
                   ? 'border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] scale-[1.02] shadow-xl'
                   : 'border-black/[0.08] dark:border-white/[0.08]'
-              } p-6 transition-all duration-300`}
+                } p-6 transition-all duration-300`}
             >
               {plan.highlighted && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
@@ -134,11 +132,10 @@ const Pricing = () => {
               </div>
 
               <button
-                className={`w-full py-2.5 px-4 rounded-xl text-sm font-medium transition-colors ${
-                  plan.highlighted
+                className={`w-full py-2.5 px-4 rounded-xl text-sm font-medium transition-colors ${plan.highlighted
                     ? 'bg-black dark:bg-white text-white dark:text-black'
                     : 'border border-black/10 dark:border-white/10 text-black dark:text-white'
-                }`}
+                  }`}
               >
                 {plan.cta}
               </button>
