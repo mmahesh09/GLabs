@@ -2,7 +2,10 @@
 
 /* ============================== IMPORTS ============================== */
 import { cn } from "@/lib/utils";
-import AnoAI from "@/components/animated-shader-background";
+import dynamic from "next/dynamic";
+const AnoAI = dynamic(() => import("@/components/animated-shader-background"), {
+  ssr: false,
+});
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { SocialProofAvatars } from "@/components/ui/social-proof-avatars";
 import { LogoCloud } from "@/components/logo-cloud-2";
@@ -12,13 +15,15 @@ import Bento from "@/components/Bento";
 import { TestimonialsSectionDemo } from "@/components/test";
 import Pricing from "@/components/pricing-component";
 
+
+
 /* ========================== SOCIAL PROOF DATA ========================= */
 const avatars = [
-  { src: "/avatars/1.jpg", alt: "Alex" },
-  { src: "/avatars/2.jpg", alt: "Priya" },
-  { src: "/avatars/3.jpg", alt: "Daniel" },
-  { src: "/avatars/4.jpg", alt: "Sophia" },
-  { src: "/avatars/5.jpg", alt: "Rahul" },
+  { src: "/avatars/1.png", alt: "Alex" },
+  { src: "/avatars/2.png", alt: "Priya" },
+  { src: "/avatars/3.png", alt: "Daniel" },
+  { src: "/avatars/4.png", alt: "Sophia" },
+  { src: "/avatars/5.png", alt: "Rahul" },
 ];
 
 /* ============================== COMPONENT ============================= */
@@ -105,6 +110,8 @@ export default function Home() {
             </p>
           </div>
 
+
+
           {/* CTA */}
           <div className="mt-16 flex flex-wrap items-center justify-center gap-8">
             <a
@@ -121,9 +128,9 @@ export default function Home() {
               Start for free →
             </a>
 
-            <button className="text-sm font-medium text-neutral-300 hover:text-white">
+            <a href="#about" className="text-sm font-medium text-neutral-300 hover:text-white">
               Explore Docs →
-            </button>
+            </a>
           </div>
         </section>
       </div>
@@ -138,7 +145,7 @@ export default function Home() {
       </section>
 
       {/* =================== FEATURES + PARTICLES =================== */}
-      <section className="relative overflow-hidden bg-[#0b0f0c]">
+      <section id="features" className="relative overflow-hidden bg-[#0b0f0c]">
         <div className="pointer-events-none absolute inset-0 z-0">
           <Particles />
         </div>
@@ -166,7 +173,11 @@ export default function Home() {
       <TestimonialsSectionDemo />
 
       {/* =========================== PRICING =========================== */}
-      <Pricing />
+      <section id="pricing">
+        <Pricing />
+      </section>
+
+
     </main>
   );
 }

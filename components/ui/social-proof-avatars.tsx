@@ -1,4 +1,5 @@
 import * as React from "react"
+import Image from "next/image"
 
 import { cn } from "@/lib/utils"
 
@@ -35,7 +36,7 @@ export function SocialProofAvatars({
             )}
             key={i}
           >
-            <img
+            <Image
               src={image.src}
               alt={image.alt || ""}
               width={50}

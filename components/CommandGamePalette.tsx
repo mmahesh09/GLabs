@@ -99,7 +99,13 @@ export function CommandGamePalette({ onClose, onSelect }: CommandGamePaletteProp
 
   return (
     <>
-      <div className="fixed inset-0 z-40" onClick={onClose} />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
 
       <motion.div
         layoutId="commandMenu"
@@ -107,17 +113,17 @@ export function CommandGamePalette({ onClose, onSelect }: CommandGamePaletteProp
         transition={{ ...SMOOTH_SPRING, duration: 0.15 }}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden max-h-[600px] flex flex-col relative">
-          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-white to-transparent pointer-events-none rounded-t-3xl z-30" />
+        <div className="bg-[#0b0f0c] rounded-3xl shadow-2xl border border-white/10 overflow-hidden max-h-[600px] flex flex-col relative text-white">
+          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-[#0b0f0c] to-transparent pointer-events-none rounded-t-3xl z-30" />
 
-          <Command ref={commandRef} className="rounded-3xl border-0 flex-1 flex flex-col">
-            <div className="px-4 py-3 border-t border-gray-100 flex-shrink-0">
+          <Command ref={commandRef} className="rounded-3xl border-0 flex-1 flex flex-col bg-transparent">
+            <div className="px-4 py-3 border-t border-white/5 flex-shrink-0">
               <CommandInput
                 ref={inputRef}
                 placeholder="search commands…"
                 value={search}
                 onValueChange={setSearch}
-                className="w-full bg-transparent border-0 outline-none text-sm placeholder:text-gray-400 focus:ring-0"
+                className="w-full bg-transparent border-0 outline-none text-sm text-white placeholder:text-gray-500 focus:ring-0"
               />
             </div>
 
@@ -138,7 +144,7 @@ export function CommandGamePalette({ onClose, onSelect }: CommandGamePaletteProp
             </CommandList>
           </Command>
 
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-3xl z-30" />
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#0b0f0c] to-transparent pointer-events-none rounded-b-3xl z-30" />
         </div>
       </motion.div>
     </>
