@@ -1,39 +1,25 @@
-import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
-import { ThemeProvider } from "next-themes";
-import "./globals.css";
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-montserrat",
-});
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "GyraLabs | A prompt to Agents 🤖",
-  description: "Prompt to Agents",
-  icons: {
-    icon: "/jsm-logo.png",
-  },
-};
+  title: "404 Not Found",
+  description: "A modern view if your app crashed",
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${montserrat.className} antialiased`} suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+      <body className={inter.className}>
           {children}
-        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
