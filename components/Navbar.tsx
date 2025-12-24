@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Search, Menu, X } from "lucide-react";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+
 import { CommandGamePalette } from "./CommandGamePalette";
 
 export default function Navbar() {
@@ -91,10 +91,9 @@ export default function Navbar() {
 
           {/* Desktop Nav links */}
           <nav className="hidden items-center gap-8 text-sm md:flex">
-            <SignedIn>
-              <a
-                href="/dashboard"
-                className="
+            <a
+              href="/dashboard"
+              className="
                   relative text-white font-medium
                   transition-all duration-300
                   hover:-translate-y-[1px]
@@ -102,10 +101,9 @@ export default function Navbar() {
                   after:bg-gradient-to-r after:from-purple-400 after:to-violet-500
                   after:scale-x-100
                 "
-              >
-                Dashboard
-              </a>
-            </SignedIn>
+            >
+              Dashboard
+            </a>
             {[
               { name: "About", href: "/#about" },
               { name: "Blog", href: "/blog" },
@@ -155,41 +153,7 @@ export default function Navbar() {
               </span>
             </button>
 
-            {/* Auth Buttons */}
-            <SignedOut>
-              <SignInButton mode="modal">
-                <button
-                  className="
-                    relative rounded-full px-4 py-2 text-sm font-medium
-                    text-purple-300
 
-                    bg-[#0b0f0c]
-
-                    shadow-[inset_3px_3px_8px_rgba(255,255,255,0.06),inset_-3px_-3px_10px_rgba(0,0,0,0.7),0_8px_24px_rgba(147,51,234,0.25)]
-
-                    transition-all duration-300 ease-out
-
-                    hover:text-white
-                    hover:shadow-[inset_2px_2px_6px_rgba(255,255,255,0.08),inset_-2px_-2px_8px_rgba(0,0,0,0.85),0_10px_30px_rgba(147,51,234,0.35)]
-
-                    active:translate-y-[1px]
-                  "
-                >
-                  Sign In
-                </button>
-              </SignInButton>
-            </SignedOut>
-
-            <SignedIn>
-              <UserButton
-                userProfileUrl="/user-profile"
-                appearance={{
-                  elements: {
-                    avatarBox: "w-9 h-9 border border-white/10",
-                  },
-                }}
-              />
-            </SignedIn>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -220,15 +184,13 @@ export default function Navbar() {
             >
               <div className="px-6 py-6 flex flex-col gap-6">
                 <nav className="flex flex-col gap-4">
-                  <SignedIn>
-                    <a
-                      href="/dashboard"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-lg font-medium text-white transition-colors"
-                    >
-                      Dashboard
-                    </a>
-                  </SignedIn>
+                  <a
+                    href="/dashboard"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-lg font-medium text-white transition-colors"
+                  >
+                    Dashboard
+                  </a>
                   {[
                     { name: "About", href: "/#about" },
                     { name: "Blog", href: "/blog" },
@@ -247,26 +209,7 @@ export default function Navbar() {
                   ))}
                 </nav>
                 <div className="flex flex-col gap-4">
-                  <SignedOut>
-                    <SignInButton mode="modal">
-                      <button
-                        className="
-                          w-full rounded-full px-4 py-3 text-sm font-medium
-                          text-purple-300
-                          bg-[#0b0f0c]
-                          shadow-[inset_3px_3px_8px_rgba(255,255,255,0.06),inset_-3px_-3px_10px_rgba(0,0,0,0.7),0_8px_24px_rgba(147,51,234,0.25)]
-                        "
-                      >
-                        Sign In
-                      </button>
-                    </SignInButton>
-                  </SignedOut>
-                  <SignedIn>
-                    <div className="flex items-center gap-3">
-                      <UserButton showName userProfileUrl="/user-profile" />
-                      <span className="text-gray-400 text-sm">Account</span>
-                    </div>
-                  </SignedIn>
+
                 </div>
               </div>
             </motion.div>

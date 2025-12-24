@@ -80,13 +80,7 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         />
       </LogoCard>
 
-      <LogoCard
-        className="border-b bg-background md:border-r md:border-b-0 md:bg-secondary dark:md:bg-secondary/30"
-        logo={{
-          src: "https://svgl.app/library/clerk-wordmark-light.svg",
-          alt: "Clerk Logo",
-        }}
-      />
+
 
       <LogoCard
         className="border-r"

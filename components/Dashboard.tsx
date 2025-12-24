@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser, SignOutButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
     Home,
@@ -19,26 +19,30 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Dashboard() {
-    const { user, isLoaded } = useUser();
+    const router = useRouter();
+    const user = {
+        imageUrl: "https://github.com/shadcn.png",
+        fullName: "Demo User",
+        firstName: "Demo",
+        lastName: "User",
+        primaryEmailAddress: { emailAddress: "demo@example.com" },
+        emailAddresses: [{ emailAddress: "demo@example.com" }],
+        phoneNumbers: [{ phoneNumber: "+1 (555) 000-0000" }],
+        publicMetadata: { role: "Agent Builder" },
+    };
+    const isLoaded = true; // Mock loaded state
     const [activeTab, setActiveTab] = useState("profile");
 
-    if (!isLoaded) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-[#0b0f0c]">
-                <div className="flex gap-2">
-                    <div className="w-3 h-3 bg-purple-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                    <div className="w-3 h-3 bg-purple-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                </div>
-            </div>
-        );
-    }
+    const handleLogout = () => {
+        router.push("/");
+    };
 
     const SidebarItem = ({ id, icon: Icon, label, badge }: { id: string, icon: any, label: string, badge?: number }) => (
         <button
             onClick={() => setActiveTab(id)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${activeTab === id
-                    ? "bg-purple-500/10 text-purple-400"
-                    : "text-neutral-400 hover:text-white hover:bg-white/5"
+                ? "bg-purple-500/10 text-purple-400"
+                : "text-neutral-400 hover:text-white hover:bg-white/5"
                 }`}
         >
             <Icon size={18} className={activeTab === id ? "text-purple-400" : "text-neutral-500 group-hover:text-white"} />
@@ -79,12 +83,13 @@ export default function Dashboard() {
                     <SidebarItem id="profile" icon={User} label="My profile" />
                 </div>
 
-                <SignOutButton>
-                    <button className="flex items-center gap-3 px-4 py-3 text-neutral-500 hover:text-red-400 transition-colors mt-auto">
-                        <LogOut size={18} />
-                        <span className="text-sm font-medium">Logout</span>
-                    </button>
-                </SignOutButton>
+                <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 px-4 py-3 text-neutral-500 hover:text-red-400 transition-colors mt-auto"
+                >
+                    <LogOut size={18} />
+                    <span className="text-sm font-medium">Logout</span>
+                </button>
             </aside>
 
             {/* Main Content Area */}
